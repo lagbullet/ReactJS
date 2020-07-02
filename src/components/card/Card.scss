@@ -1,19 +1,36 @@
 .card {
   display: inline-block;
-  border: 5px solid green;
   box-shadow: 0 2px 2px #ccc;
   width: 200px;
   padding: 20px;
 }
 
-.caption {
+.green {
+  border: 5px solid green;
+}
+
+.red {
+  border: 5px double red;
+  font-weight: bold;
+}
+
+.captionWrapper {
   border-bottom: 2px solid black;
   font-weight: bold;
   font-size: 20px;
   color: green;
 }
 
+.caption {
+  display: inline-block;
+}
+
 .text {
   font-size: 20px;
   color: green;
+}
+
+.checkbox {
+  position: relative;
+  float: right;
 }
