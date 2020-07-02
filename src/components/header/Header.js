@@ -2,12 +2,9 @@ import React from 'react';
 import './Header.scss';
 
 class Header extends React.Component {
-
   render() {
-      const {className, text} = this.props;
-      return (
-        <header class={className}>{text}</header>
-      );
+    const { children } = this.props;
+    return <header className="header">{children}</header>;
   }
 }
 

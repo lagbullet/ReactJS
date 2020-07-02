@@ -1,16 +1,19 @@
 .card {
   display: inline-block;
-  margin: 10px;
   border: 5px solid green;
   box-shadow: 0 2px 2px #ccc;
   width: 200px;
-  height: 100px;
   padding: 20px;
 }
 
 .caption {
   border-bottom: 2px solid black;
   font-weight: bold;
+  font-size: 20px;
+  color: green;
+}
+
+.text {
   font-size: 20px;
   color: green;
 }

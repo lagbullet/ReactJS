@@ -2,15 +2,14 @@ import React from 'react';
 import './Card.scss';
 
 class Card extends React.Component {
-
   render() {
-      const {className, caption, data} = this.props;
-      return (
-        <div className={className}>
-            <div className="caption">{caption}</div>
-            <div>{data}</div>
-        </div>
-      );
+    const { caption, children } = this.props;
+    return (
+      <div className="card">
+        <div className="caption">{caption}</div>
+        <div className="text">{children}</div>
+      </div>
+    );
   }
 }
 
