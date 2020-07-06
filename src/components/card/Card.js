@@ -1,15 +1,23 @@
 import React from 'react';
+import classNames from 'classnames';
 import './Card.scss';
 
 class Card extends React.Component {
   state = {
-    color: 'green',
+    checked: false,
   };
+
+  toggleCheckboxChange = () => this.setState(({ checked }) => ({ checked: !checked }));
 
   render() {
     const { caption, children } = this.props;
+    const cardClass = classNames({
+      card: true,
+      redCard: this.state.checked,
+      greenCard: !this.state.checked,
+    });
     return (
-      <div className={this.state.color + ' card'}>
+      <div className={cardClass}>
         <div className="captionWrapper">
           <div className="caption">{caption}</div>
           <input className="checkbox" type="checkbox" onChange={this.toggleCheckboxChange} />
@@ -18,9 +26,6 @@ class Card extends React.Component {
       </div>
     );
   }
-
-  toggleCheckboxChange = () =>
-    this.setState(({ color }) => ({ color: color === 'green' ? 'red' : 'green' }));
 }
 
 export default Card;
