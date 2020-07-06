@@ -9,7 +9,7 @@ class Card extends React.Component {
   render() {
     const { caption, children } = this.props;
     return (
-      <div className={this.state.color + ' card '}>
+      <div className={this.state.color + ' card'}>
         <div className="captionWrapper">
           <div className="caption">{caption}</div>
           <input className="checkbox" type="checkbox" onChange={this.toggleCheckboxChange} />

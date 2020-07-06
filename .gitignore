@@ -1,0 +1,9 @@
+**/.idea/
+**/*.iml
+**/target/
+.vscode/
+
+# dependencies
+**/node_modules
+
+package-lock.json
