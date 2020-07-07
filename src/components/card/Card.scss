@@ -1,20 +1,12 @@
 .card {
   display: inline-block;
   box-shadow: 0 2px 2px #ccc;
-  width: 200px;
+  width: 10%;
   padding: 20px;
 }
 
-.greenCard {
-  border: 5px solid green;
-}
-
-.redCard {
-  border: 5px double red;
-  font-weight: bold;
-}
-
-.captionWrapper {
+.caption-wrapper {
+  display: flex;
   border-bottom: 2px solid black;
   font-weight: bold;
   font-size: 20px;
@@ -22,15 +14,27 @@
 }
 
 .caption {
-  display: inline-block;
+  overflow: hidden;
+  flex: 2;
+  white-space: nowrap;
+  justify-content: space-between;
+}
+
+.green-card {
+  border: 5px solid green;
+}
+
+.red-card {
+  border: 5px double red;
+  font-weight: bold;
 }
 
 .text {
   font-size: 20px;
   color: green;
+  overflow: hidden;
 }
 
-.checkbox {
-  position: relative;
-  float: right;
+.card-icon {
+  margin-right: 1px;
 }
