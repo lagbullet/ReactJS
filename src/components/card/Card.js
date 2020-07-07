@@ -36,8 +36,20 @@ class Card extends React.Component {
       children: tempChildren,
     }));
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.readOnly) {
+      return {
+        editable: false,
+        caption: state.tempCaption,
+        children: state.tempChildren,
+      };
+    }
+    return state;
+  }
+
   render() {
     const { checked, editable, caption, children } = this.state;
+    const { readOnly } = this.props;
     const cardClass = classNames({
       card: true,
       'red-card': checked,
@@ -59,7 +71,7 @@ class Card extends React.Component {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <MdEdit className="card-icon" onClick={this.editCard} />
+              {readOnly ? null : <MdEdit className="card-icon" onClick={this.editCard} />}
               <input className="card-icon" type="checkbox" onChange={this.toggleCheckboxChange} />
             </React.Fragment>
           )}
