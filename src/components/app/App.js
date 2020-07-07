@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className="page">
       <Header>Header</Header>
-      <div className="cardWrapper">
+      <div className="card-wrapper">
         <Card className="card" caption="Caption">
           Text
         </Card>
