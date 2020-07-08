@@ -1,7 +1,12 @@
 .card-wrapper {
   margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-  display: grid;
+.card-wrapper .card {
+  margin: 0.5rem;
 }
 
 .read-only-text {

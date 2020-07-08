@@ -71,7 +71,7 @@ class Card extends React.Component {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {readOnly ? null : <MdEdit className="card-icon" onClick={this.editCard} />}
+              {!readOnly && <MdEdit className="card-icon" onClick={this.editCard} />}
               <input className="card-icon" type="checkbox" onChange={this.toggleCheckboxChange} />
             </React.Fragment>
           )}
