@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../card';
 import Header from '../header';
+import styled from 'styled-components';
 import './App.scss';
 
 class App extends React.Component {
@@ -23,10 +24,28 @@ class App extends React.Component {
 
   render() {
     const { cards, readOnly } = this.state;
+    const Input = styled.input.attrs({
+      type: 'checkbox',
+      onChange: this.toggleReadOnly,
+      checked: readOnly,
+    })`
+      padding: 0.5em;
+      margin: 0.5em;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: papayawhip;
+      border-radius: 3px;
+      border: none;
+      &:checked {
+        background: salmon;
+      }
+    `;
+
     return (
       <React.Fragment>
         <Header>Header</Header>
-        <input type="checkbox" onChange={this.toggleReadOnly} />
+        <Input />
         <div className="read-only-text">Read only</div>
         <div className="card-wrapper">
           {cards.map(({ caption, text }, i) => {
