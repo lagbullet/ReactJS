@@ -1,14 +1,9 @@
-.card-wrapper {
-  margin: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.card-wrapper .card {
-  margin: 0.5rem;
-}
-
 .read-only-text {
   display: inline;
+}
+
+.remove-selected-button {
+  display: grid;
+  font: bold;
+  background-color: salmon;
 }
