@@ -62,7 +62,7 @@ class App extends React.Component {
           onClick={this.removeSelected}
           value="Remove selected cards"
         />
-        <CardList cards={cards} readOnly={readOnly} selectCard={this.selectCardHandler} />
+        <CardList cards={cards} readOnly={readOnly} selectCardHandler={this.selectCardHandler} />
       </React.Fragment>
     );
   }
