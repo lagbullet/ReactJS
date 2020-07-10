@@ -8,7 +8,6 @@ const CardList = ({ cards, readOnly, selectCardHandler }) => (
       return (
         <Card
           key={id}
-          className="card"
           caption={caption}
           readOnly={readOnly}
           selectHandler={() => selectCardHandler(id)}

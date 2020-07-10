@@ -1,9 +1,13 @@
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
-import './CardBody.scss';
 
 const CardBody = ({ editable, handleChange, children }) => (
-  <ContentEditable disabled={!editable} onChange={handleChange} html={children} className="text" />
+  <ContentEditable
+    disabled={!editable}
+    onChange={handleChange}
+    html={children}
+    className="card-body"
+  />
 );
 
 export default CardBody;
