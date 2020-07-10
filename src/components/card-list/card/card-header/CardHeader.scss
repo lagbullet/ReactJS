@@ -1,0 +1,18 @@
+.caption-wrapper {
+  display: flex;
+  border-bottom: 2px solid black;
+  font-weight: bold;
+  font-size: 20px;
+  color: green;
+}
+
+.caption {
+  overflow: hidden;
+  flex: 2;
+  white-space: nowrap;
+  justify-content: space-between;
+}
+
+.card-icon {
+  margin-right: 1px;
+}

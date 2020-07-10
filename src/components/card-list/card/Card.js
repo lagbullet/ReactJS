@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { MdEdit, MdSave, MdCancel } from 'react-icons/md';
-import ContentEditable from 'react-contenteditable';
+import CardHeader from './card-header';
+import CardBody from './card-body';
 import './Card.scss';
 
 class Card extends React.Component {
@@ -14,7 +14,10 @@ class Card extends React.Component {
     tempChildren: this.props.children,
   };
 
-  toggleCheckboxChange = () => this.setState(({ checked }) => ({ checked: !checked }));
+  toggleCheckboxChange = () => {
+    this.setState(({ checked }) => ({ checked: !checked }));
+    this.props.selectHandler();
+  };
 
   editCard = () => this.setState(() => ({ checked: false, editable: true }));
 
@@ -57,31 +60,17 @@ class Card extends React.Component {
     });
     return (
       <div className={cardClass}>
-        <div className="caption-wrapper">
-          <ContentEditable
-            disabled={!editable}
-            onChange={this.handleCaptionChange}
-            html={caption}
-            className="caption"
-          />
-          {editable ? (
-            <React.Fragment>
-              <MdSave className="card-icon" onClick={this.saveChanges} />
-              <MdCancel className="card-icon" onClick={this.cancelChanges} />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {!readOnly && <MdEdit className="card-icon" onClick={this.editCard} />}
-              <input className="card-icon" type="checkbox" onChange={this.toggleCheckboxChange} />
-            </React.Fragment>
-          )}
-        </div>
-        <ContentEditable
-          disabled={!editable}
-          onChange={this.handleTextChange}
-          html={children}
-          className="text"
+        <CardHeader
+          editable={editable}
+          caption={caption}
+          readOnly={readOnly}
+          handleChange={this.handleCaptionChange}
+          onSave={this.saveChanges}
+          onCancel={this.cancelChanges}
+          onEdit={this.editCard}
+          onChecked={this.toggleCheckboxChange}
         />
+        <CardBody editable={editable} handleChange={this.handleTextChange} children={children} />
       </div>
     );
   }

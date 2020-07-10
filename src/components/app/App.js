@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../card';
+import CardList from '../card-list';
 import Header from '../header';
 import styled from 'styled-components';
 import './App.scss';
@@ -7,20 +7,29 @@ import './App.scss';
 class App extends React.Component {
   state = {
     cards: [
-      { caption: 'Card 1', text: 'Text 1' },
-      { caption: 'Card 2', text: 'Text 2' },
-      { caption: 'Card 3', text: 'Text 3' },
-      { caption: 'Card 4', text: 'Text 4' },
-      { caption: 'Card 5', text: 'Text 5' },
-      { caption: 'Card 6', text: 'Text 6' },
-      { caption: 'Card 7', text: 'Text 7' },
+      { id: 1, caption: 'Card 1', text: 'Text 1', selected: false },
+      { id: 2, caption: 'Card 2', text: 'Text 2', selected: false },
+      { id: 3, caption: 'Card 3', text: 'Text 3', selected: false },
+      { id: 4, caption: 'Card 4', text: 'Text 4', selected: false },
+      { id: 5, caption: 'Card 5', text: 'Text 5', selected: false },
+      { id: 6, caption: 'Card 6', text: 'Text 6', selected: false },
+      { id: 7, caption: 'Card 7', text: 'Text 7', selected: false },
     ],
     readOnly: false,
   };
 
-  toggleReadOnly = () => {
-    this.setState(({ readOnly }) => ({ readOnly: !readOnly }));
-  };
+  toggleReadOnly = () => this.setState(({ readOnly }) => ({ readOnly: !readOnly }));
+
+  selectCardHandler = (cardId) =>
+    this.setState(({ cards }) => ({
+      cards: cards.map((card) => ({
+        ...card,
+        selected: card.id === cardId ? !card.selected : card.selected,
+      })),
+    }));
+
+  removeSelected = () =>
+    this.setState(({ cards }) => ({ cards: cards.filter(({ selected }) => !selected) }));
 
   render() {
     const { cards, readOnly } = this.state;
@@ -47,15 +56,13 @@ class App extends React.Component {
         <Header>Header</Header>
         <Input />
         <div className="read-only-text">Read only</div>
-        <div className="card-wrapper">
-          {cards.map(({ caption, text }, i) => {
-            return (
-              <Card key={i} className="card" caption={caption} readOnly={readOnly}>
-                {text}
-              </Card>
-            );
-          })}
-        </div>
+        <input
+          className="remove-selected-button"
+          type="button"
+          onClick={this.removeSelected}
+          value="Remove selected cards"
+        />
+        <CardList cards={cards} readOnly={readOnly} selectCardHandler={this.selectCardHandler} />
       </React.Fragment>
     );
   }

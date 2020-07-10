@@ -1,0 +1,15 @@
+.card {
+  display: inline-block;
+  box-shadow: 0 2px 2px #ccc;
+  width: 10%;
+  padding: 20px;
+}
+
+.green-card {
+  border: 5px solid green;
+}
+
+.red-card {
+  border: 5px double red;
+  font-weight: bold;
+}
