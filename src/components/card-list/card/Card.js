@@ -65,10 +65,10 @@ class Card extends React.Component {
           caption={caption}
           readOnly={readOnly}
           handleChange={this.handleCaptionChange}
-          save={this.saveChanges}
-          cancel={this.cancelChanges}
-          edit={this.editCard}
-          toggleCheckbox={this.toggleCheckboxChange}
+          onSave={this.saveChanges}
+          onCancel={this.cancelChanges}
+          onEdit={this.editCard}
+          onChecked={this.toggleCheckboxChange}
         />
         <CardBody editable={editable} handleChange={this.handleTextChange} children={children} />
       </div>

@@ -8,10 +8,10 @@ const CardHeader = ({
   caption,
   readOnly,
   handleChange,
-  save,
-  cancel,
-  edit,
-  toggleCheckbox,
+  onSave,
+  onCancel,
+  onEdit,
+  onChecked,
 }) => (
   <div className="caption-wrapper">
     <ContentEditable
@@ -22,13 +22,13 @@ const CardHeader = ({
     />
     {editable ? (
       <React.Fragment>
-        <MdSave className="card-icon" onClick={save} />
-        <MdCancel className="card-icon" onClick={cancel} />
+        <MdSave className="card-icon" onClick={onSave} />
+        <MdCancel className="card-icon" onClick={onCancel} />
       </React.Fragment>
     ) : (
       <React.Fragment>
-        {!readOnly && <MdEdit className="card-icon" onClick={edit} />}
-        <input className="card-icon" type="checkbox" onChange={toggleCheckbox} />
+        {!readOnly && <MdEdit className="card-icon" onClick={onEdit} />}
+        <input className="card-icon" type="checkbox" onChange={onChecked} />
       </React.Fragment>
     )}
   </div>
