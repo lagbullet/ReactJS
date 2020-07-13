@@ -55,8 +55,10 @@ class Card extends React.Component {
     const { readOnly } = this.props;
     const cardClass = classNames({
       card: true,
-      'red-card': checked,
-      'green-card': !checked,
+      'mb-3': true,
+      'text-white': true,
+      'bg-danger': checked,
+      'bg-dark': !checked,
     });
     return (
       <div className={cardClass}>

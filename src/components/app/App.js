@@ -1,8 +1,9 @@
 import React from 'react';
 import CardList from '../card-list';
+import CreateCardModal from '../modal';
 import Header from '../header';
 import styled from 'styled-components';
-import './App.scss';
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {
   state = {
@@ -16,9 +17,12 @@ class App extends React.Component {
       { id: 7, caption: 'Card 7', text: 'Text 7', selected: false },
     ],
     readOnly: false,
+    showModal: false,
   };
 
   toggleReadOnly = () => this.setState(({ readOnly }) => ({ readOnly: !readOnly }));
+
+  toggleShowModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   selectCardHandler = (cardId) =>
     this.setState(({ cards }) => ({
@@ -31,8 +35,15 @@ class App extends React.Component {
   removeSelected = () =>
     this.setState(({ cards }) => ({ cards: cards.filter(({ selected }) => !selected) }));
 
+  saveCardHandler = (caption, text) => {
+    this.setState(({ cards }) => ({
+      cards: [...cards, { id: uuidv4(), caption: caption, text: text, selected: false }],
+      showModal: false,
+    }));
+  };
+
   render() {
-    const { cards, readOnly } = this.state;
+    const { cards, readOnly, showModal } = this.state;
     const Input = styled.input.attrs({
       type: 'checkbox',
       onChange: this.toggleReadOnly,
@@ -54,13 +65,22 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header>Header</Header>
-        <Input />
-        <div className="read-only-text">Read only</div>
-        <input
-          className="remove-selected-button"
-          type="button"
-          onClick={this.removeSelected}
-          value="Remove selected cards"
+        <label>
+          <Input className="ml-4" />
+          Read only
+        </label>
+        <div>
+          <button onClick={this.toggleShowModal} className="btn btn-success ml-4 mr-4">
+            Create card
+          </button>
+          <button className="btn btn-danger" onClick={this.removeSelected}>
+            Remove selected cards
+          </button>
+        </div>
+        <CreateCardModal
+          show={showModal}
+          handleClose={this.toggleShowModal}
+          handleSave={this.saveCardHandler}
         />
         <CardList cards={cards} readOnly={readOnly} selectCardHandler={this.selectCardHandler} />
       </React.Fragment>
