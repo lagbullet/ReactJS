@@ -3,7 +3,6 @@ import CardList from '../card-list';
 import CreateCardModal from '../modal';
 import Header from '../header';
 import styled from 'styled-components';
-import 'bootstrap/dist/css/bootstrap.css';
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {

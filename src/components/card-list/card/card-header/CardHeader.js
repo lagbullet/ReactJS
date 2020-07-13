@@ -13,7 +13,7 @@ const CardHeader = ({
   onEdit,
   onChecked,
 }) => (
-  <div className="caption-wrapper card-header">
+  <div className="card-header">
     <ContentEditable
       disabled={!editable}
       onChange={handleChange}
