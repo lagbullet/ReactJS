@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 class CreateCardModal extends React.Component {
   caption = '';
@@ -23,12 +24,12 @@ class CreateCardModal extends React.Component {
           <input onChange={this.handleTextChange} />
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
-          </button>
-          <button className="btn btn-primary" onClick={() => handleSave(this.caption, this.text)}>
+          </Button>
+          <Button variant="primary" onClick={() => handleSave(this.caption, this.text)}>
             Save card
-          </button>
+          </Button>
         </Modal.Footer>
       </Modal>
     );

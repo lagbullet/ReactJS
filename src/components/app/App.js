@@ -3,6 +3,7 @@ import CardList from '../card-list';
 import CreateCardModal from '../modal';
 import Header from '../header';
 import styled from 'styled-components';
+import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {
@@ -70,12 +71,12 @@ class App extends React.Component {
           Read only
         </label>
         <div>
-          <button onClick={this.toggleShowModal} className="btn btn-success ml-4 mr-4">
+          <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
             Create card
-          </button>
-          <button className="btn btn-danger" onClick={this.removeSelected}>
+          </Button>
+          <Button variant="danger" onClick={this.removeSelected}>
             Remove selected cards
-          </button>
+          </Button>
         </div>
         <CreateCardModal
           show={showModal}
