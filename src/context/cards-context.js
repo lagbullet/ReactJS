@@ -15,10 +15,7 @@ class CardsProvider extends Component {
       { id: uuidv4(), caption: 'Card 6', text: 'Text 6', selected: false },
       { id: uuidv4(), caption: 'Card 7', text: 'Text 7', selected: false },
     ],
-    showModal: false,
   };
-
-  toggleShowModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   selectCardHandler = (cardId) =>
     this.setState(({ cards }) => ({
@@ -31,7 +28,6 @@ class CardsProvider extends Component {
   saveCardHandler = (caption, text) => {
     this.setState(({ cards }) => ({
       cards: [...cards, { id: uuidv4(), caption: caption, text: text, selected: false }],
-      showModal: false,
     }));
   };
 
