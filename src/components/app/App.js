@@ -4,7 +4,7 @@ import CreateCardModal from '../modal';
 import Header from '../header';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
-import { v4 as uuidv4 } from 'uuid';
+import { Consumer as CardConsumer } from '../../context/cards-context';
 
 class App extends React.Component {
   state = {
@@ -25,26 +25,8 @@ class App extends React.Component {
 
   toggleShowModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
-  selectCardHandler = (cardId) =>
-    this.setState(({ cards }) => ({
-      cards: cards.map((card) => ({
-        ...card,
-        selected: card.id === cardId ? !card.selected : card.selected,
-      })),
-    }));
-
-  removeSelected = () =>
-    this.setState(({ cards }) => ({ cards: cards.filter(({ selected }) => !selected) }));
-
-  saveCardHandler = (caption, text) => {
-    this.setState(({ cards }) => ({
-      cards: [...cards, { id: uuidv4(), caption: caption, text: text, selected: false }],
-      showModal: false,
-    }));
-  };
-
   render() {
-    const { cards, readOnly, showModal } = this.state;
+    const { readOnly, showModal } = this.state;
     const Input = styled.input.attrs({
       type: 'checkbox',
       onChange: this.toggleReadOnly,
@@ -62,29 +44,52 @@ class App extends React.Component {
         background: salmon;
       }
     `;
+    const Div = styled.div`
+      position: absolute;
+      display: inline-block;
+      margin-left: 40%;
+      border-radius: 20px;
+      color: grey;
+      text-align: center;
+  }`;
 
     return (
-      <React.Fragment>
-        <Header>Header</Header>
-        <label>
-          <Input className="ml-4" />
-          Read only
-        </label>
-        <div>
-          <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
-            Create card
-          </Button>
-          <Button variant="danger" onClick={this.removeSelected}>
-            Remove selected cards
-          </Button>
-        </div>
-        <CreateCardModal
-          show={showModal}
-          handleClose={this.toggleShowModal}
-          handleSave={this.saveCardHandler}
-        />
-        <CardList cards={cards} readOnly={readOnly} selectCardHandler={this.selectCardHandler} />
-      </React.Fragment>
+      <CardConsumer>
+        {(context) => (
+          <React.Fragment>
+            <Header>
+              Header
+              <Div>{context.cards.length}</Div>
+            </Header>
+            <label>
+              <Input className="ml-4" />
+              Read only
+            </label>
+            <div>
+              <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
+                Create card
+              </Button>
+              <Button variant="danger" onClick={context.removeSelected}>
+                Remove selected cards
+              </Button>
+            </div>
+
+            <CreateCardModal
+              show={showModal}
+              handleClose={this.toggleShowModal}
+              handleSave={(caption, text) => {
+                context.saveCardHandler(caption, text);
+                this.toggleShowModal();
+              }}
+            />
+            <CardList
+              cards={context.cards}
+              readOnly={readOnly}
+              selectCardHandler={context.selectCardHandler}
+            />
+          </React.Fragment>
+        )}
+      </CardConsumer>
     );
   }
 }

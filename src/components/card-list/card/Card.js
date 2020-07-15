@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import CardHeader from './card-header';
 import CardBody from './card-body';
 import withLoadingDelay from '../../hoc/WithLoadingDelay.js';
+import PropTypes from 'prop-types';
 import './Card.scss';
 
 class Card extends React.Component {
@@ -78,5 +79,11 @@ class Card extends React.Component {
     );
   }
 }
+
+Card.propTypes = {
+  caption: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+};
 
 export default withLoadingDelay(Card);
