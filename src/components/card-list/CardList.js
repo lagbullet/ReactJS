@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './card';
 import './CardList.scss';
 
-const CardList = ({ cards, readOnly, selectCardHandler }) => (
+const CardList = ({ cards, readOnly, selectCardHandler, editCardHandler }) => (
   <div className="card-wrapper">
     {cards.map(({ caption, text, id }) => {
       return (
@@ -11,6 +11,7 @@ const CardList = ({ cards, readOnly, selectCardHandler }) => (
           caption={caption}
           readOnly={readOnly}
           selectHandler={() => selectCardHandler(id)}
+          editHandler={(caption, children) => editCardHandler(id, caption, children)}
         >
           {text}
         </Card>
