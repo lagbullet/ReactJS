@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 const CardContext = React.createContext();
@@ -6,15 +7,7 @@ const { Provider, Consumer } = CardContext;
 
 class CardsProvider extends Component {
   state = {
-    cards: [
-      { id: uuidv4(), caption: 'Card 1', text: 'Text 1', selected: false },
-      { id: uuidv4(), caption: 'Card 2', text: 'Text 2', selected: false },
-      { id: uuidv4(), caption: 'Card 3', text: 'Text 3', selected: false },
-      { id: uuidv4(), caption: 'Card 4', text: 'Text 4', selected: false },
-      { id: uuidv4(), caption: 'Card 5', text: 'Text 5', selected: false },
-      { id: uuidv4(), caption: 'Card 6', text: 'Text 6', selected: false },
-      { id: uuidv4(), caption: 'Card 7', text: 'Text 7', selected: false },
-    ],
+    cards: [],
   };
 
   selectCardHandler = (cardId) =>
@@ -27,20 +20,31 @@ class CardsProvider extends Component {
 
   saveCardHandler = (caption, text) => {
     this.setState(({ cards }) => ({
-      cards: [...cards, { id: uuidv4(), caption: caption, text: text, selected: false }],
+      cards: [...cards, { id: uuidv4(), caption: caption, text: text }],
     }));
   };
 
   removeSelected = () =>
     this.setState(({ cards }) => ({ cards: cards.filter(({ selected }) => !selected) }));
 
+  componentDidMount() {
+    axios
+      .get('https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json')
+      .then((response) => {
+        this.setState(() => ({
+          cards: response.data
+            .slice(0, 15)
+            .map(({ Number, Name, About }) => ({ id: Number, caption: Name, text: About })),
+        }));
+      });
+  }
+
   render() {
-    const { cards, showModal } = this.state;
+    const { cards } = this.state;
     return (
       <Provider
         value={{
           cards: cards,
-          showModal: showModal,
           selectCardHandler: this.selectCardHandler,
           saveCardHandler: this.saveCardHandler,
           removeSelected: this.removeSelected,
