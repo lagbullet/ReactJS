@@ -6,14 +6,10 @@ import { Consumer as CardConsumer } from '../../context/cards-context';
 class App extends React.Component {
   render() {
     return (
-      <CardConsumer>
-        {(context) => (
-          <React.Fragment>
-            <Header cardCount={context.cards.length} />
-            <Routes />
-          </React.Fragment>
-        )}
-      </CardConsumer>
+      <React.Fragment>
+        <CardConsumer>{(context) => <Header cardCount={context.cards.length} />}</CardConsumer>
+        <Routes />
+      </React.Fragment>
     );
   }
 }

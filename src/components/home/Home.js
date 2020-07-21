@@ -36,39 +36,44 @@ class Home extends React.Component {
     `;
 
     return (
-      <CardConsumer>
-        {(context) => (
-          <React.Fragment>
-            <label>
-              <Input className="ml-4" />
-              Read only
-            </label>
-            <div>
-              <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
-                Create card
-              </Button>
+      <React.Fragment>
+        <label>
+          <Input className="ml-4" />
+          Read only
+        </label>
+        <div>
+          <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
+            Create card
+          </Button>
+          <CardConsumer>
+            {(context) => (
               <Button variant="danger" onClick={context.removeSelected}>
                 Remove selected cards
               </Button>
-            </div>
-
-            <CreateCardModal
-              show={showModal}
-              handleClose={this.toggleShowModal}
-              handleSave={(caption, text) => {
-                context.saveCardHandler(caption, text);
-                this.toggleShowModal();
-              }}
-            />
-            <CardList
-              cards={context.cards}
-              readOnly={readOnly}
-              selectCardHandler={context.selectCardHandler}
-              editCardHandler={context.editCardHandler}
-            />
-          </React.Fragment>
-        )}
-      </CardConsumer>
+            )}
+          </CardConsumer>
+        </div>
+        <CardConsumer>
+          {(context) => (
+            <React.Fragment>
+              <CreateCardModal
+                show={showModal}
+                handleClose={this.toggleShowModal}
+                handleSave={(caption, text) => {
+                  context.saveCardHandler(caption, text);
+                  this.toggleShowModal();
+                }}
+              />
+              <CardList
+                cards={context.cards}
+                readOnly={readOnly}
+                selectCardHandler={context.selectCardHandler}
+                editCardHandler={context.editCardHandler}
+              />
+            </React.Fragment>
+          )}
+        </CardConsumer>
+      </React.Fragment>
     );
   }
 }
