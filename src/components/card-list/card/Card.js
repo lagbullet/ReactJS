@@ -27,12 +27,16 @@ class Card extends React.Component {
 
   handleTextChange = (event) => this.setState(() => ({ children: event.target.value }));
 
-  saveChanges = () =>
-    this.setState(({ caption, children }) => ({
-      editable: false,
-      tempCaption: caption,
-      tempChildren: children,
-    }));
+  saveChanges = () => {
+    this.setState(({ caption, children }) => {
+      this.props.editHandler(caption, children);
+      return {
+        editable: false,
+        tempCaption: caption,
+        tempChildren: children,
+      };
+    });
+  };
 
   cancelChanges = () =>
     this.setState(({ tempCaption, tempChildren }) => ({

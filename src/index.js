@@ -5,11 +5,14 @@ import './index.css';
 import App from './components/app/App';
 import { Provider as CardsProvider } from './context/cards-context';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <CardsProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </CardsProvider>
   </React.StrictMode>,
   document.getElementById('root')

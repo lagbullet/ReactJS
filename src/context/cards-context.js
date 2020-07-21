@@ -18,6 +18,14 @@ class CardsProvider extends Component {
       })),
     }));
 
+  editCardHandler = (cardId, newCaption, newText) => {
+    this.setState(({ cards }) => ({
+      cards: cards.map((card) => ({
+        ...(card.id === cardId ? { ...card, caption: newCaption, text: newText } : card),
+      })),
+    }));
+  };
+
   saveCardHandler = (caption, text) => {
     this.setState(({ cards }) => ({
       cards: [...cards, { id: uuidv4(), caption: caption, text: text }],
@@ -47,6 +55,7 @@ class CardsProvider extends Component {
           cards: cards,
           selectCardHandler: this.selectCardHandler,
           saveCardHandler: this.saveCardHandler,
+          editCardHandler: this.editCardHandler,
           removeSelected: this.removeSelected,
           toggleShowModal: this.toggleShowModal,
         }}
