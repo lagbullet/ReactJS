@@ -7,18 +7,26 @@ class SignIn extends React.Component {
     validPassword: false,
   };
 
-  isValidEmail = ({ target: { value } }) => {
-    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    this.setState(() => ({
-      validEmail: re.test(value),
-    }));
+  required = (value) => {
+    return (value?.length || 0) === 0 ? false : true;
   };
 
-  isValidPassword = ({ target: { value } }) => {
+  validEmail = (value) => {
+    this.setState(() => ({ validEmail: value }));
+  };
+
+  validPassword = (value) => {
+    this.setState(() => ({ validPassword: value }));
+  };
+
+  isValidEmail = (value) => {
+    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(value);
+  };
+
+  isValidPassword = (value) => {
     let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    this.setState(() => ({
-      validPassword: re.test(value),
-    }));
+    return re.test(value);
   };
 
   render() {
@@ -30,9 +38,10 @@ class SignIn extends React.Component {
         <div className="form-group">
           <Input
             type="email"
+            validation={[this.required, this.isValidEmail]}
+            onValid={this.validEmail}
             className="form-control"
             placeholder="Enter email"
-            onChange={this.isValidEmail}
             label="Email address"
           />
         </div>
@@ -40,10 +49,11 @@ class SignIn extends React.Component {
         <div className="form-group">
           <Input
             type="password"
+            validation={[this.required, this.isValidPassword]}
+            onValid={this.validPassword}
             className="form-control"
             placeholder="Enter password"
-            onChange={this.isValidPassword}
-            lable="Password"
+            label="Password"
           />
         </div>
 
