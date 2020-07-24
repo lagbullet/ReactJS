@@ -1,5 +1,5 @@
 const required = (value) => {
-  return value?.length || 0;
+  return (value?.length || 0) !== 0;
 };
 
 const isValidEmail = (value) => {
