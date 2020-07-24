@@ -1,14 +1,11 @@
 import React from 'react';
 import Input from '../input';
+import { required, isValidEmail, isValidPassword } from '../../validation';
 
 class SignIn extends React.Component {
   state = {
     validEmail: false,
     validPassword: false,
-  };
-
-  required = (value) => {
-    return (value?.length || 0) === 0 ? false : true;
   };
 
   validEmail = (value) => {
@@ -17,16 +14,6 @@ class SignIn extends React.Component {
 
   validPassword = (value) => {
     this.setState(() => ({ validPassword: value }));
-  };
-
-  isValidEmail = (value) => {
-    let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(value);
-  };
-
-  isValidPassword = (value) => {
-    let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return re.test(value);
   };
 
   render() {
@@ -38,7 +25,7 @@ class SignIn extends React.Component {
         <div className="form-group">
           <Input
             type="email"
-            validation={[this.required, this.isValidEmail]}
+            validation={[required, isValidEmail]}
             onValid={this.validEmail}
             className="form-control"
             placeholder="Enter email"
@@ -49,7 +36,7 @@ class SignIn extends React.Component {
         <div className="form-group">
           <Input
             type="password"
-            validation={[this.required, this.isValidPassword]}
+            validation={[required, isValidPassword]}
             onValid={this.validPassword}
             className="form-control"
             placeholder="Enter password"
