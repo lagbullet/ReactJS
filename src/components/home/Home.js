@@ -3,7 +3,8 @@ import CardList from '../card-list';
 import CreateCardModal from '../modal';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
-import { Consumer as CardConsumer } from '../../context/cards-context';
+import { connect } from 'react-redux';
+import * as cardActions from '../redux/actions/card';
 
 class Home extends React.Component {
   state = {
@@ -34,7 +35,13 @@ class Home extends React.Component {
         background: salmon;
       }
     `;
-
+    const {
+      saveCardHandler,
+      removeSelected,
+      selectCardHandler,
+      editCardHandler,
+      cards,
+    } = this.props;
     return (
       <React.Fragment>
         <label>
@@ -45,37 +52,41 @@ class Home extends React.Component {
           <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
             Create card
           </Button>
-          <CardConsumer>
-            {(context) => (
-              <Button variant="danger" onClick={context.removeSelected}>
-                Remove selected cards
-              </Button>
-            )}
-          </CardConsumer>
+          <Button variant="danger" onClick={removeSelected}>
+            Remove selected cards
+          </Button>
         </div>
-        <CardConsumer>
-          {(context) => (
-            <React.Fragment>
-              <CreateCardModal
-                show={showModal}
-                handleClose={this.toggleShowModal}
-                handleSave={(caption, text) => {
-                  context.saveCardHandler(caption, text);
-                  this.toggleShowModal();
-                }}
-              />
-              <CardList
-                cards={context.cards}
-                readOnly={readOnly}
-                selectCardHandler={context.selectCardHandler}
-                editCardHandler={context.editCardHandler}
-              />
-            </React.Fragment>
-          )}
-        </CardConsumer>
+        <React.Fragment>
+          <CreateCardModal
+            show={showModal}
+            handleClose={this.toggleShowModal}
+            handleSave={(caption, text) => {
+              saveCardHandler(caption, text);
+              this.toggleShowModal();
+            }}
+          />
+          <CardList
+            cards={cards}
+            readOnly={readOnly}
+            selectCardHandler={selectCardHandler}
+            editCardHandler={editCardHandler}
+          />
+        </React.Fragment>
       </React.Fragment>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  cards: state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveCardHandler: (caption, text) => dispatch(cardActions.saveCardHandler(caption, text)),
+  removeSelected: () => dispatch(cardActions.removeSelectedCards()),
+  selectCardHandler: (cardId) => dispatch(cardActions.selectCardHandler(cardId)),
+  editCardHandler: (cardId, newCaption, newText) =>
+    dispatch(cardActions.editCardHandler(cardId, newCaption, newText)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

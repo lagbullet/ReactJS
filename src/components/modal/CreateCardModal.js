@@ -3,14 +3,13 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 class CreateCardModal extends React.Component {
-  caption = '';
-  text = '';
-
   handleCaptionChange = (event) => (this.caption = event.target.value);
 
   handleTextChange = (event) => (this.text = event.target.value);
 
   render() {
+    this.caption = '';
+    this.text = '';
     const { show, handleClose, handleSave } = this.props;
     return (
       <Modal show={show} onHide={handleClose}>
