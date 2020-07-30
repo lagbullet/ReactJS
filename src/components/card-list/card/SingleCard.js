@@ -92,9 +92,8 @@ class SingleCard extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  editCardHandler: (cardId, newCaption, newText) =>
-    dispatch(cardActions.editCardHandler(cardId, newCaption, newText)),
-});
+const mapDispatchToProps = {
+  editCardHandler: cardActions.editCardHandler,
+};
 
 export default connect(null, mapDispatchToProps)(SingleCard);
