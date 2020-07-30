@@ -3,17 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/App';
-import { Provider as CardsProvider } from './context/cards-context';
+import store from './components/redux';
+import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CardsProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </CardsProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

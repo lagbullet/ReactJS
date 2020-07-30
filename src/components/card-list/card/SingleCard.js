@@ -2,23 +2,22 @@ import React from 'react';
 import classNames from 'classnames';
 import CardHeader from './card-header';
 import CardBody from './card-body';
-import withLoadingDelay from '../../hoc/WithLoadingDelay.js';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as cardActions from '../../redux/actions/card';
 import './Card.scss';
 
-class Card extends React.Component {
+class SingleCard extends React.Component {
   state = {
     checked: false,
     editable: false,
-    caption: this.props.caption,
-    tempCaption: this.props.caption,
-    children: this.props.children,
-    tempChildren: this.props.children,
+    caption: this.props.location.caption,
+    tempCaption: this.props.location.caption,
+    children: this.props.location.children,
+    tempChildren: this.props.location.children,
   };
 
   toggleCheckboxChange = () => {
     this.setState(({ checked }) => ({ checked: !checked }));
-    this.props.selectHandler();
   };
 
   editCard = () => this.setState(() => ({ checked: false, editable: true }));
@@ -29,7 +28,7 @@ class Card extends React.Component {
 
   saveChanges = () => {
     this.setState(({ caption, children }) => {
-      this.props.editHandler(caption, children);
+      this.props.editCardHandler(this.props.match.params.id, caption, children);
       return {
         editable: false,
         tempCaption: caption,
@@ -38,17 +37,14 @@ class Card extends React.Component {
     });
   };
 
-  cancelChanges = () =>
+  cancelChanges = () => {
+    this.props.editCardHandler(this.props.match.params.id, this.state.caption, this.state.children);
     this.setState(({ tempCaption, tempChildren }) => ({
       editable: false,
       caption: tempCaption,
       children: tempChildren,
     }));
-
-  handleRedirect = () =>
-    this.setState(({ redirect }) => ({
-      redirect: this.props.readOnly || !this.state.editable ? !redirect : false,
-    }));
+  };
 
   static getDerivedStateFromProps(props, state) {
     if (props.readOnly) {
@@ -62,18 +58,21 @@ class Card extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const { checked, editable, caption, children, redirect } = this.state;
     const { readOnly, redirectToCard } = this.props;
     const cardClass = classNames({
       card: true,
-      'mb-3': true,
+      'ml-3': true,
+      'mt-3': true,
       'text-white': true,
       'bg-danger': checked,
       'bg-dark': !checked,
     });
-    return redirect ? (
-      redirectToCard
-    ) : (
+    if (redirect) {
+      return redirectToCard;
+    }
+    return (
       <div className={cardClass} onDoubleClick={this.handleRedirect}>
         <CardHeader
           editable={editable}
@@ -93,10 +92,8 @@ class Card extends React.Component {
   }
 }
 
-Card.propTypes = {
-  caption: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+const mapDispatchToProps = {
+  editCardHandler: cardActions.editCardHandler,
 };
 
-export default withLoadingDelay(Card);
+export default connect(null, mapDispatchToProps)(SingleCard);

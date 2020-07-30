@@ -1,9 +1,9 @@
 import React from 'react';
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Header = (props) => {
-  const { cardCount } = props;
+const Header = ({ cardCount }) => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,4 +30,8 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (cards) => ({
+  cardCount: cards.length,
+});
+
+export default connect(mapStateToProps, null)(Header);
