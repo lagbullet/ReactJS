@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import {
   FETCH_CARDS,
   REMOVE_SELECTED_CARDS,
@@ -7,12 +8,18 @@ import {
   EDIT_CARD_HANDLER,
 } from './types';
 
-export const fetchCards = (fetchedCards) => ({
-  type: FETCH_CARDS,
-  cards: fetchedCards.data
-    .slice(0, 15)
-    .map(({ Number, Name, About }) => ({ id: Number, caption: Name, text: About })),
-});
+export const fetchCards = () => (dispatch) => {
+  axios
+    .get('https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json')
+    .then((response) =>
+      dispatch({
+        type: FETCH_CARDS,
+        cards: response.data
+          .slice(0, 15)
+          .map(({ Number, Name, About }) => ({ id: Number, caption: Name, text: About })),
+      })
+    );
+};
 
 export const removeSelectedCards = () => ({
   type: REMOVE_SELECTED_CARDS,
