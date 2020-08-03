@@ -38,7 +38,6 @@ class SingleCard extends React.Component {
   };
 
   cancelChanges = () => {
-    this.props.editCardHandler(this.props.match.params.id, this.state.caption, this.state.children);
     this.setState(({ tempCaption, tempChildren }) => ({
       editable: false,
       caption: tempCaption,
@@ -58,7 +57,6 @@ class SingleCard extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { checked, editable, caption, children, redirect } = this.state;
     const { readOnly, redirectToCard } = this.props;
     const cardClass = classNames({
