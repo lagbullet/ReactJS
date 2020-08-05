@@ -1,54 +1,30 @@
 import React from 'react';
 import CardList from '../card-list';
 import CreateCardModal from '../modal';
-import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import * as cardActions from '../redux/actions/card';
 
 class Home extends React.Component {
   state = {
-    readOnly: false,
     showModal: false,
   };
-
-  toggleReadOnly = () => this.setState(({ readOnly }) => ({ readOnly: !readOnly }));
 
   toggleShowModal = () => this.setState(({ showModal }) => ({ showModal: !showModal }));
 
   render() {
-    const { readOnly, showModal } = this.state;
-    const Input = styled.input.attrs({
-      type: 'checkbox',
-      onChange: this.toggleReadOnly,
-      checked: readOnly,
-    })`
-      padding: 0.5em;
-      margin: 0.5em;
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      background: papayawhip;
-      border-radius: 3px;
-      border: none;
-      &:checked {
-        background: salmon;
-      }
-    `;
+    const { showModal } = this.state;
     const {
       saveCardHandler,
       removeSelected,
       selectCardHandler,
       editCardHandler,
+      readOnly,
       cards,
     } = this.props;
     return (
       <React.Fragment>
-        <label>
-          <Input className="ml-4" />
-          Read only
-        </label>
-        <div>
+        <div className="mt-4">
           <Button variant="success" onClick={this.toggleShowModal} className="ml-4 mr-4">
             Create card
           </Button>
@@ -77,8 +53,9 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  cards: state,
+const mapStateToProps = ({ cards }) => ({
+  cards: cards.cards,
+  readOnly: cards.readOnly,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,10 @@
 import React from 'react';
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
+import { logOut } from '../redux/actions/authorization';
 import { connect } from 'react-redux';
 
-const Header = ({ cardCount }) => {
+const Header = ({ cardCount, auth, logOut }) => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,11 +19,27 @@ const Header = ({ cardCount }) => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/sign-in" className="nav-link">
-                Sign In
-              </NavLink>
+              {!auth.loggedIn ? (
+                <NavLink to="/sign-in" className="nav-link">
+                  Sign In
+                </NavLink>
+              ) : (
+                <li onClick={logOut} className="nav-link">
+                  Sign Out
+                </li>
+              )}
             </li>
+            {auth.isAdmin && (
+              <li>
+                <NavLink exact to="/settings" className="nav-link">
+                  Settings
+                </NavLink>
+              </li>
+            )}
           </ul>
+          {auth.loggedIn && (
+            <span className="navbar-text text-center mr-4">Welcome, {auth.currentUser}</span>
+          )}
           <span className="navbar-text text-center">{cardCount}</span>
         </div>
       </nav>
@@ -30,8 +47,13 @@ const Header = ({ cardCount }) => {
   );
 };
 
-const mapStateToProps = (cards) => ({
-  cardCount: cards.length,
+const mapStateToProps = (state) => ({
+  cardCount: state.cards.cards.length,
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = {
+  logOut,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

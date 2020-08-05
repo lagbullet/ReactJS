@@ -10,7 +10,7 @@ class Input extends React.Component {
         break;
       }
     }
-    this.props.onValid(result);
+    this.props.onValid(result, value);
   };
 
   render() {
