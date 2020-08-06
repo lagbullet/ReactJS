@@ -6,6 +6,7 @@ import {
   SAVE_CARD_HANDLER,
   SELECT_CARD_HANDLER,
   EDIT_CARD_HANDLER,
+  TOGGLE_READ_ONLY,
 } from './types';
 
 export const fetchCards = () => (dispatch) => {
@@ -42,4 +43,8 @@ export const editCardHandler = (cardId, newCaption, newText) => ({
   cardId,
   newCaption,
   newText,
+});
+
+export const toggleReadOnly = () => ({
+  type: TOGGLE_READ_ONLY,
 });

@@ -90,8 +90,12 @@ class SingleCard extends React.Component {
   }
 }
 
+const mapStateToProps = ({ cards }) => ({
+  readOnly: cards.readOnly,
+});
+
 const mapDispatchToProps = {
   editCardHandler: cardActions.editCardHandler,
 };
 
-export default connect(null, mapDispatchToProps)(SingleCard);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCard);

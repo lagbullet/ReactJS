@@ -1,9 +1,9 @@
 export const FETCH_CARDS = 'FETCH_CARDS';
-
 export const REMOVE_SELECTED_CARDS = 'REMOVE_SELECTED_CARDS';
-
 export const SAVE_CARD_HANDLER = 'SAVE_CARD_HANDLER';
-
 export const SELECT_CARD_HANDLER = 'SELECT_CARD_HANDLER';
-
 export const EDIT_CARD_HANDLER = 'EDIT_CARD_HANDLER';
+export const TOGGLE_READ_ONLY = 'TOGGLE_READ_ONLY';
+
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';

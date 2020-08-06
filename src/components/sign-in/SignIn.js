@@ -1,6 +1,8 @@
 import React from 'react';
 import Input from '../input';
 import { required, isValidEmail, isValidPassword } from '../../validation';
+import { logIn } from '../redux/actions/authorization';
+import { connect } from 'react-redux';
 
 class SignIn extends React.Component {
   state = {
@@ -8,12 +10,17 @@ class SignIn extends React.Component {
     validPassword: false,
   };
 
-  validEmail = (value) => {
-    this.setState(() => ({ validEmail: value }));
+  validEmail = (value, email) => {
+    this.setState(() => ({ validEmail: value, username: email }));
   };
 
-  validPassword = (value) => {
-    this.setState(() => ({ validPassword: value }));
+  validPassword = (value, password) => {
+    this.setState(() => ({ validPassword: value, password: password }));
+  };
+
+  signIn = () => {
+    this.props.logIn(this.state.username, this.state.password);
+    this.props.history.push('/');
   };
 
   render() {
@@ -57,6 +64,7 @@ class SignIn extends React.Component {
           type="submit"
           className="btn btn-primary btn-block"
           disabled={!(validEmail && validPassword)}
+          onClick={this.signIn}
         >
           Submit
         </button>
@@ -65,4 +73,8 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = {
+  logIn,
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
