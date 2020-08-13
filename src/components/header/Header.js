@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 const Header = ({ cardCount, auth, logOut }) => {
   return (
-    <React.Fragment>
+    <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <span className="navbar-brand" href="#">
           Header
@@ -43,7 +43,7 @@ const Header = ({ cardCount, auth, logOut }) => {
           <span className="navbar-text text-center">{cardCount}</span>
         </div>
       </nav>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import withLoadingDelay from '../../hoc/WithLoadingDelay.js';
 import PropTypes from 'prop-types';
 import './Card.scss';
 
-class Card extends React.Component {
+export class Card extends React.Component {
   state = {
     checked: false,
     editable: false,
@@ -21,11 +21,11 @@ class Card extends React.Component {
     this.props.selectHandler();
   };
 
-  editCard = () => this.setState(() => ({ checked: false, editable: true }));
+  editCard = () => this.setState({ checked: false, editable: true });
 
-  handleCaptionChange = (event) => this.setState(() => ({ caption: event.target.value }));
+  handleCaptionChange = (event) => this.setState({ caption: event.target.value });
 
-  handleTextChange = (event) => this.setState(() => ({ children: event.target.value }));
+  handleTextChange = (event) => this.setState({ children: event.target.value });
 
   saveChanges = () => {
     this.setState(({ caption, children }) => {
@@ -45,10 +45,7 @@ class Card extends React.Component {
       children: tempChildren,
     }));
 
-  handleRedirect = () =>
-    this.setState(({ redirect }) => ({
-      redirect: this.props.readOnly || !this.state.editable ? !redirect : false,
-    }));
+  handleRedirect = () => this.setState({ redirect: this.props.readOnly || !this.state.editable });
 
   static getDerivedStateFromProps(props, state) {
     if (props.readOnly) {
